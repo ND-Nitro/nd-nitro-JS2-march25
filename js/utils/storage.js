@@ -30,6 +30,9 @@ export function getUserEmail() {
   return localStorage.getItem("userEmail");
 }
 
+/**
+ * here we have the clear function.. it will clear all authentication data when logged out
+ */
 export function clearAuthData() {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("apiKey");
