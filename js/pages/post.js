@@ -1,11 +1,11 @@
-import { API_SOCIAL_URL } from "../config/api";
+import { API_SOCIAL_URL } from "../config/api.js";
 import { getAccessToken, getApiKey } from "../utils/storage.js";
 
-const POSST_URL = `${API_SOCIAL_URL}/posts`;
+const POSTS_URL = `${API_SOCIAL_URL}/posts`;
 
 function getHeaders(authRequired = false) {
   const headers = {
-    "Content-type": "application/json",
+    "Content-Type": "application/json",
   };
 
   if (authRequired) {
@@ -17,18 +17,15 @@ function getHeaders(authRequired = false) {
     }
 
     if (apiKey) {
-      headers["x-Noroff-Api-Key"] = apiKey;
+      headers["X-Noroff-API-Key"] = apiKey;
     }
   }
 
   return headers;
 }
-
-/** this handle API response and throws useful errors
- * @param {Response} response
- * @returns {Promise<any>}
+/**
+ * Handle API response and error handling
  */
-
 async function handleResponse(response) {
   if (response.status === 204) {
     return null;
@@ -42,11 +39,6 @@ async function handleResponse(response) {
 
   return result;
 }
-
-/** this is getting all the posts.
- * @param {Promise<any[]>}
- * @returns {}
- */
 
 export async function getPosts() {
   const response = await fetch(`${POSTS_URL}?_author=true&_comments=true`, {
