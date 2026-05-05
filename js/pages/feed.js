@@ -18,7 +18,7 @@ function renderPosts(posts) {
     .map((post) => {
       return `
         <article class="post-card">
-          <a href="/post.html?id=${post.id}">
+          <a href="./post.html?id=${post.id}">
             <h2>${post.title || "Untitled Post"}</h2>
           </a>
           <p>${post.body || ""}</p>
@@ -75,6 +75,7 @@ if (searchForm) {
     }
   });
 }
+
 if (createPostForm) {
   createPostForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -90,7 +91,7 @@ if (createPostForm) {
     const postData = {
       title,
       body,
-      tage,
+      tags,
     };
 
     if (mediaUrl) {
@@ -102,7 +103,7 @@ if (createPostForm) {
 
     try {
       if (!title) {
-        throw new Error("Title is rewuired.");
+        throw new Error("Title is required.");
       }
 
       if (formMessage) {
