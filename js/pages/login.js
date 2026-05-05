@@ -6,7 +6,7 @@ const passwordInput = document.querySelector("#password");
 
 const emailError = document.querySelector("#emailError");
 const passwordError = document.querySelector("#passwordError");
-const formMessage = document.querySelector("#ormMessage");
+const formMessage = document.querySelector("#formMessage");
 
 /**
  * this set text content of an elemt
@@ -22,7 +22,6 @@ function setMessage(element, message) {
 /**
  * clear all error messages,
  */
-
 function clearErrors() {
   setMessage(emailError, "");
   setMessage(passwordError, "");
@@ -32,10 +31,18 @@ function clearErrors() {
 /**
  * this function will check if email looks valid
  * @param {string} email
+ * @return {boolean}
+ */
+function isValidEmail(email) {
+  return email.includes("@");
+}
+
+/**
+ * this function will check if email looks valid
+ * @param {string} email
  * @param {string} password
  * @return {boolean}
  */
-
 function validateForm(email, password) {
   let isValid = true;
 
@@ -56,11 +63,11 @@ function validateForm(email, password) {
 }
 
 if (loginForm) {
-  logiinForm.addEventListener("submit", async (event) => {
+  loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     clearErrors();
 
-    const email = emailInputs?.value.trim() || "";
+    const email = emailInput?.value.trim() || "";
     const password = passwordInput?.value.trim() || "";
 
     if (!validateForm(email, password)) {
@@ -68,7 +75,7 @@ if (loginForm) {
     }
 
     try {
-      setMeassege(formMressage, "Logging in...");
+      setMessage(formMessage, "Logging in...");
 
       await loginUser(email, password);
 
