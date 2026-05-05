@@ -1,51 +1,88 @@
-import { API_SOCIAL_URL } from "../config/api.js";
-import { getAccessToken, getApiKey } from "../utils/storage.js";
+import { getPostById, deletePost } from "../api/posts.js";
+import { getUserName } from "../utils/storage.js";
 
-const POSTS_URL = `${API_SOCIAL_URL}/posts`;
+const postContainer = document.querySelector("#postContainer");
+const messageElement = document.querySelector("#message");
 
-function getHeaders(authRequired = false) {
-  const headers = {
-    "Content-Type": "application/json",
-  };
+function getPostId() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id");
+}
 
-  if (authRequired) {
-    const accessToken = getAccessToken();
-    const apiKey = getApiKey();
+function renderPost(post) {
+  if (!postContainer) return;
 
-    if (accessToken) {
-      headers.Authorization = `Bearer ${accessToken}`;
+  const currentUser = getUserName();
+  const isOwner = post.author?.name === currentUser;
+
+  postContainer.innerHTML = `
+  <article class="post-card">
+  <h1>${post.title || "Untitled post"}</h1>
+
+  <p>${post.body || ""}</p>
+
+  ${
+    post.media?.url
+      ? `<img src="${post.media.url}" alt="Post media" class="post-media">`
+      : ""
+  }
+
+  <p><strong>Author:</strong> ${post.author?.name || "Unknown"}</p>
+  <p><strong>Comments:</strong> ${post._count?.comments ?? 0}</p>
+  <p><strong>Reactions:</strong> ${post._count?.reactions ?? 0}</p>
+  
+  ${
+    isOwner
+      ? `
+    <div cass="post-actions">
+    <a href="./edit.html?id=${post.id}">Edit</a>
+    <button id="deletePostBtn" type="button">Delete</button>
+    </div>
+    `
+      : ""
+  }
+  </article>
+  `;
+
+  const deleteButton = document.querySelector("#deletePostBtn");
+
+  if (deleteButton) {
+    deleteButton.addEventListener("click", async () => {
+      const confirmed = confirm("Are you sure you want to delete this post?");
+      if (!confirmed) return;
+
+      try {
+        await deletePost(post.id);
+        window.location.href = "./index.html";
+      } catch (error) {
+        if (messageElement) {
+          messageElement.tectContent = error.message;
+        }
+
+        console.error("delete post error:", error);
+      }
+    });
+  }
+}
+
+async function loadPost() {
+  const id = getPostId();
+
+  if (!id) {
+    if (postContainer) {
+      postContainer.innerHTML = "<p>Post ID is missing.</p>";
     }
+    return;
+  }
 
-    if (apiKey) {
-      headers["X-Noroff-API-Key"] = apiKey;
+  try {
+    const post = await getPostById(id);
+    renderPost(post);
+  } catch (error) {
+    if (messageElement) {
+      messageElement.textContent = error.message;
     }
+    console.error("load post error:", error);
   }
-
-  return headers;
 }
-/**
- * Handle API response and error handling
- */
-async function handleResponse(response) {
-  if (response.status === 204) {
-    return null;
-  }
-
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(result.errors?.[0]?.message || "Something went wrong.");
-  }
-
-  return result;
-}
-
-export async function getPosts() {
-  const response = await fetch(`${POSTS_URL}?_author=true&_comments=true`, {
-    method: "GET",
-    headers: getHeaders(true),
-  });
-
-  const result = await handleResponse(response);
-  return result.data;
-}
+loadPost();
