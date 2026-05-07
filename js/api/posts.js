@@ -142,3 +142,17 @@ export async function reactToPost(id, symbol = "👍") {
   const result = await handleResponse(response);
   return result.data;
 }
+
+/**
+ * Comment on post so people can see what you think
+ */
+export async function commentOnPost(id, body) {
+  const response = await fetch(`${POSTS_URL}/${id}/comment`, {
+    method: "POST",
+    headers: getHeaders(true),
+    body: JSON.stringify({ body }),
+  });
+
+  const result = await handleResponse(response);
+  return result.data;
+}

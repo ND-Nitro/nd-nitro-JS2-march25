@@ -1,4 +1,9 @@
-import { getPostById, deletePost, reactToPost } from "../api/posts.js";
+import {
+  getPostById,
+  deletePost,
+  reactToPost,
+  commentOnPost,
+} from "../api/posts.js";
 
 import { getUserName } from "../utils/storage.js";
 
@@ -10,6 +15,25 @@ function getPostId() {
   return params.get("id");
 }
 
+function renderComments(comments) {
+  if (!comments || comments.length === 0) {
+    return "<p>No comments yet.</p>";
+  }
+
+  return comments
+    .map((comment) => {
+      return `
+        <article class="comment-card">
+          <p>${comment.body}</p>
+          <p><strong>By:</strong> ${
+            comment.author?.name || comment.owner || "Unknown"
+          }</p>
+        </article>
+      `;
+    })
+    .join("");
+}
+
 function renderPost(post) {
   if (!postContainer) return;
 
@@ -17,46 +41,52 @@ function renderPost(post) {
   const isOwner = post.author?.name === currentUser;
 
   postContainer.innerHTML = `
-  <article class="post-card">
-    <h1>${post.title || "Untitled post"}</h1>
+    <article class="post-card">
+      <h1>${post.title || "Untitled post"}</h1>
 
-    <p>${post.body || ""}</p>
+      <p>${post.body || ""}</p>
 
-    ${
-      post.media?.url
-        ? `<img src="${post.media.url}" alt="Post media" class="post-media">`
-        : ""
-    }
+      ${
+        post.media?.url
+          ? `<img src="${post.media.url}" alt="Post media" class="post-media">`
+          : ""
+      }
 
-    <p><strong>Author:</strong> ${post.author?.name || "Unknown"}</p>
+      <p><strong>Author:</strong> ${post.author?.name || "Unknown"}</p>
+      <p><strong>Comments:</strong> ${post._count?.comments ?? 0}</p>
+      <p><strong>Reactions:</strong> ${post._count?.reactions ?? 0}</p>
 
-    <p><strong>Comments:</strong> ${post._count?.comments ?? 0}</p>
+      <button id="likeBtn" type="button">
+        👍 Like
+      </button>
 
-    <p>
-      <strong>Reactions:</strong>
-      ${post._count?.reactions ?? 0}
-    </p>
+      <form id="commentForm">
+        <label for="commentBody">Write a comment</label>
+        <textarea id="commentBody" name="commentBody"></textarea>
+        <button type="submit">Post comment</button>
+      </form>
 
-    <button id="likeBtn" type="button">
-      👍 Like
-    </button>
+      <section class="comments-section">
+        <h2>Comments</h2>
+        ${renderComments(post.comments)}
+      </section>
 
-    ${
-      isOwner
-        ? `
-      <div class="post-actions">
-        <a class="action-btn" href="./edit.html?id=${post.id}">
-          Edit
-        </a>
+      ${
+        isOwner
+          ? `
+        <div class="post-actions">
+          <a class="action-btn" href="./edit.html?id=${post.id}">
+            Edit
+          </a>
 
-        <button id="deletePostBtn" type="button">
-          Delete
-        </button>
-      </div>
-      `
-        : ""
-    }
-  </article>
+          <button id="deletePostBtn" type="button">
+            Delete
+          </button>
+        </div>
+        `
+          : ""
+      }
+    </article>
   `;
 
   const likeButton = document.querySelector("#likeBtn");
@@ -65,7 +95,6 @@ function renderPost(post) {
     likeButton.addEventListener("click", async () => {
       try {
         await reactToPost(post.id);
-
         await loadPost();
       } catch (error) {
         if (messageElement) {
@@ -73,6 +102,35 @@ function renderPost(post) {
         }
 
         console.error("Reaction error:", error);
+      }
+    });
+  }
+
+  const commentForm = document.querySelector("#commentForm");
+  const commentBodyInput = document.querySelector("#commentBody");
+
+  if (commentForm) {
+    commentForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const body = commentBodyInput?.value.trim();
+
+      if (!body) {
+        if (messageElement) {
+          messageElement.textContent = "Comment cannot be empty.";
+        }
+        return;
+      }
+
+      try {
+        await commentOnPost(post.id, body);
+        await loadPost();
+      } catch (error) {
+        if (messageElement) {
+          messageElement.textContent = error.message;
+        }
+
+        console.error("Comment error:", error);
       }
     });
   }
@@ -87,7 +145,6 @@ function renderPost(post) {
 
       try {
         await deletePost(post.id);
-
         window.location.href = "./index.html";
       } catch (error) {
         if (messageElement) {
@@ -113,7 +170,6 @@ async function loadPost() {
 
   try {
     const post = await getPostById(id);
-
     renderPost(post);
   } catch (error) {
     if (messageElement) {
