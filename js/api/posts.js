@@ -133,12 +133,13 @@ export async function searchPosts(query) {
  * i did get a little help  from chat gpt understand this function
  */
 
-export async function reactToPost(id, symbol = "👍") {
-  const encodedSymbol = encodeURIComponent(symbol);
-
-  const response = await fetch(`${POSTS_URL}/${id}/react/${encodedSymbol}`, {
+export async function reactToPost(id) {
+  const response = await fetch(`${POSTS_URL}/${id}/react/👍`, {
     method: "PUT",
-    headers: getHeaders(true),
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+      "X-Noroff-API-Key": getApiKey(),
+    },
   });
 
   const result = await handleResponse(response);
