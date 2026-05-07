@@ -72,7 +72,7 @@ function validateRegisterForm(name, email, password, passwordConfirm) {
     setMessage(passwordConfirmError, "please confirm your password.");
     isValid = false;
   } else if (password !== passwordConfirm) {
-    setMessage(passwordConfirmWError, "passwords do not match.");
+    setMessage(passwordConfirmError, "passwords do not match.");
     isValid = false;
   }
 
