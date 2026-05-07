@@ -17,19 +17,21 @@ nav a:focus {
   text-decoration: underline;
 }
 
-body > h1,
-body > h2,
-body > form,
-body > section,
-body > p,
 main {
   max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
+  padding: 1rem;
 }
 
-main {
-  padding: 1rem;
+body > h1,
+body > h2,
+body > form,
+body > section,
+body > p {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 form,
@@ -64,7 +66,8 @@ textarea {
 }
 
 button,
-.post-actions a {
+.post-actions a,
+.back-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -81,7 +84,8 @@ button,
 }
 
 button:hover,
-.post-actions a:hover {
+.post-actions a:hover,
+.back-link:hover {
   background: var(--primary-hover);
   border-color: var(--primary-hover);
 }
@@ -92,6 +96,63 @@ p[id$="Error"] {
   color: var(--danger);
   font-weight: 700;
 }
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Feed layout */
+
+.feed-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.feed-main {
+  min-width: 0;
+}
+
+.feed-sidebar {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  margin-top: 6.5rem;
+}
+
+.feed-sidebar form {
+  margin: 0 0 1.5rem;
+}
+
+.feed-sidebar h2 {
+  margin-top: 0;
+}
+
+.feed-sidebar input,
+.feed-sidebar textarea,
+.feed-sidebar button {
+  width: 100%;
+}
+
+/* Posts */
+
+#postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.post-card {
+  padding: 1.5rem;
+  margin-block: 0;
+}
+
+/* Post actions */
 
 .post-actions {
   display: flex;
@@ -108,48 +169,37 @@ p[id$="Error"] {
   margin: 0;
 }
 
-img {
-  max-width: 100%;
-  border-radius: 8px;
-  display: block;
-}
-
-#searchForm {
-  max-width: 420px;
-  margin: 1rem 0 2rem auto;
-  padding: 1rem;
-}
-
-#searchForm input,
-#searchForm button {
-  width: 100%;
-}
-
-#createPostForm {
-  max-width: 650px;
-  margin: 2rem auto;
-}
-
 #likeBtn {
   width: auto;
-  min-width: 120px;
-  padding: 0.6rem 1rem;
+  min-width: 110px;
+  padding: 0.55rem 0.9rem;
   margin-top: 1rem;
 }
 
+/* Back button */
+
 .back-link {
-  display: inline-flex;
-  align-items: center;
   width: auto;
   margin: 1rem 0;
-  padding: 0.6rem 1rem;
-  background: var(--primary);
-  color: var(--primary-text);
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 700;
 }
 
-.back-link:hover {
-  background: var(--primary-hover);
+/* Comments */
+
+.comment-card {
+  padding: 0.75rem;
+  margin-block: 0.75rem;
+}
+
+/* Mobile */
+
+@media (max-width: 900px) {
+  .feed-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .feed-sidebar {
+    position: static;
+    order: -1;
+    margin-top: 0;
+  }
 }

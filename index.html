@@ -6,6 +6,7 @@
     <title>Social Feed</title>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
+
   <body>
     <nav>
       <a href="./index.html">Feed</a>
@@ -14,28 +15,38 @@
       <a href="./register.html">Register</a>
     </nav>
 
-    <h1>Feed</h1>
+    <main class="feed-layout">
+      <section class="feed-main">
+        <h1>Feed</h1>
+        <section id="postsContainer"></section>
+      </section>
 
-    <form id="searchForm">
-      <input id="searchInput" type="search" placeholder="Search posts" />
-      <button type="submit">Search</button>
-    </form>
+      <aside class="feed-sidebar">
+        <form id="searchForm">
+          <h2>Search posts</h2>
+          <input id="searchInput" type="search" placeholder="Search posts" />
+          <button type="submit">Search</button>
+        </form>
 
-    <h2>Create post</h2>
+        <form id="createPostForm">
+          <h2>Create post</h2>
 
-    <form id="createPostForm">
-      <input id="title" type="text" placeholder="Title" />
-      <textarea id="body" placeholder="Write your post"></textarea>
-      <input id="tags" type="text" placeholder="tags, separated, by comma" />
-      <input id="mediaUrl" type="url" placeholder="Image URL" />
-      <input id="mediaAlt" type="text" placeholder="Image alt text" />
+          <input id="title" type="text" placeholder="Title" />
+          <textarea id="body" placeholder="Write your post"></textarea>
+          <input
+            id="tags"
+            type="text"
+            placeholder="tags, separated, by comma"
+          />
+          <input id="mediaUrl" type="url" placeholder="Image URL" />
+          <input id="mediaAlt" type="text" placeholder="Image alt text" />
 
-      <p id="formMessage"></p>
+          <p id="formMessage"></p>
 
-      <button type="submit">Create post</button>
-    </form>
-
-    <section id="postsContainer"></section>
+          <button type="submit">Create post</button>
+        </form>
+      </aside>
+    </main>
 
     <script type="module" src="./js/pages/feed.js"></script>
   </body>
