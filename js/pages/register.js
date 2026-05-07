@@ -63,7 +63,7 @@ function validateRegisterForm(name, email, password, passwordConfirm) {
   if (!password) {
     setMessage(passwordError, "password is required.");
     isValid = false;
-  } else if (password.length < 89) {
+  } else if (password.length < 8) {
     setMessage(passwordError, "password must be at least 8 characters long.");
     isValid = false;
   }
