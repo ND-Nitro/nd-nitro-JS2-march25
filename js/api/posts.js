@@ -128,3 +128,17 @@ export async function searchPosts(query) {
   const result = await handleResponse(response);
   return result.data;
 }
+
+/** this will make sure that you can like another post..
+ * i did get a little help  from chat gpt understand this function
+ */
+
+export async function reactToPost(id, symbol = "👍") {
+  const response = await fetch(`${POSTS_URL}/${id}/react/${symbol}`, {
+    method: "PUT",
+    headers: getHeaders(true),
+  });
+
+  const result = await handleResponse(response);
+  return result.data;
+}
