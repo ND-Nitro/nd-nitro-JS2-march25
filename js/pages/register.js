@@ -113,7 +113,7 @@ if (registerForm) {
       }, 1500);
     } catch (error) {
       setMessage(formMessage, error.message);
-      conseole.error("Registration error:", error);
+      console.error("Registration error:", error);
     }
   });
 }
