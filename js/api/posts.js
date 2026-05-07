@@ -134,7 +134,9 @@ export async function searchPosts(query) {
  */
 
 export async function reactToPost(id, symbol = "👍") {
-  const response = await fetch(`${POSTS_URL}/${id}/react/${symbol}`, {
+  const encodedSymbol = encodeURIComponent(symbol);
+
+  const response = await fetch(`${POSTS_URL}/${id}/react/${encodedSymbol}`, {
     method: "PUT",
     headers: getHeaders(true),
   });
