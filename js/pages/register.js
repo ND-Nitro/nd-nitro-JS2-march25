@@ -1,7 +1,7 @@
 import { registerUser, loginUser } from "../api/auth.js";
 
 const registerForm = document.querySelector("#registerform");
-const nameInput = document.querySelector("name");
+const nameInput = document.querySelector("#name");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
 const passwordConfirmInput = document.querySelector("#passwordConfirm");
