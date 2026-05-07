@@ -35,7 +35,7 @@ function renderPost(post) {
     isOwner
       ? `
     <div class="post-actions">
-    <a href="./edit.html?id=${post.id}">Edit</a>
+    <a class="action-btn"  href="./edit.html?id=${post.id}">Edit</a>
     <button id="deletePostBtn" type="button">Delete</button>
     </div>
     `
