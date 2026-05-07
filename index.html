@@ -3,7 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SteffenMedia</title>
+    <title>Social Feed</title>
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <body></body>
+  <body>
+    <nav>
+      <a href="./index.html">Feed</a>
+      <a href="./profile.html">My profile</a>
+      <a href="./login.html">Login</a>
+      <a href="./register.html">Register</a>
+    </nav>
+
+    <h1>Feed</h1>
+
+    <form id="searchForm">
+      <input id="searchInput" type="search" placeholder="Search posts" />
+      <button type="submit">Search</button>
+    </form>
+
+    <h2>Create post</h2>
+
+    <form id="createPostForm">
+      <input id="title" type="text" placeholder="Title" />
+      <textarea id="body" placeholder="Write your post"></textarea>
+      <input id="tags" type="text" placeholder="tags, separated, by comma" />
+      <input id="mediaUrl" type="url" placeholder="Image URL" />
+      <input id="mediaAlt" type="text" placeholder="Image alt text" />
+
+      <p id="formMessage"></p>
+
+      <button type="submit">Create post</button>
+    </form>
+
+    <section id="postsContainer"></section>
+
+    <script type="module" src="./js/pages/feed.js"></script>
+  </body>
 </html>

@@ -1,10 +1,17 @@
 import { getPosts, searchPosts, createPost } from "../api/posts.js";
+import { getAccessToken } from "../utils/storage.js";
 
 const postsContainer = document.querySelector("#postsContainer");
 const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
 const createPostForm = document.querySelector("#createPostForm");
 const formMessage = document.querySelector("#formMessage");
+
+const isLoggedIn = Boolean(getAccessToken());
+
+if (createPostForm && !isLoggedIn) {
+  createPostForm.style.display = "none";
+}
 
 function renderPosts(posts) {
   if (!postsContainer) return;
@@ -71,6 +78,7 @@ if (searchForm) {
       if (postsContainer) {
         postsContainer.innerHTML = `<p>${error.message}</p>`;
       }
+
       console.error("Search error:", error);
     }
   });
@@ -79,6 +87,13 @@ if (searchForm) {
 if (createPostForm) {
   createPostForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    if (!isLoggedIn) {
+      if (formMessage) {
+        formMessage.textContent = "You must be logged in to create a post.";
+      }
+      return;
+    }
 
     const title = document.querySelector("#title")?.value.trim() || "";
     const body = document.querySelector("#body")?.value.trim() || "";

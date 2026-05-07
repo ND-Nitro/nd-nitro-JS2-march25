@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="./index.html">Feed</a>
+      <a href="./profile.html">My profile</a>
+      <a href="./login.html">Login</a>
+      <a href="./register.html">Register</a>
+    </nav>
+
+    <h1>Register</h1>
+
+    <form id="registerform">
+      <input id="name" type="text" placeholder="Name" />
+      <p id="nameError"></p>
+
+      <input id="email" type="email" placeholder="Email" />
+      <p id="emailError"></p>
+
+      <input id="password" type="password" placeholder="Password" />
+      <p id="passwordError"></p>
+
+      <input
+        id="passwordConfirm"
+        type="password"
+        placeholder="Confirm password"
+      />
+      <p id="passwordConfirmError"></p>
+
+      <p id="formMessage"></p>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <script type="module" src="./js/pages/register.js"></script>
+  </body>
+</html>
