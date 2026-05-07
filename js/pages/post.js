@@ -61,7 +61,6 @@ function renderPost(post) {
 
         console.error("delete post error:", error);
       }
-      S;
     });
   }
 }
