@@ -1,4 +1,4 @@
-import { registerUser, loginUser } from "../api/auth";
+import { registerUser, loginUser } from "../api/auth.js";
 
 const registerForm = document.querySelector("#registerform");
 const nameInput = document.querySelector("name");

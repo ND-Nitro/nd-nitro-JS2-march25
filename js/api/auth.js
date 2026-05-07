@@ -1,5 +1,5 @@
 import { API_AUTH_URL } from "../config/api.js";
-import { saveAuth } from "../utils/storage.js";
+import { saveAuthData } from "../utils/storage.js";
 
 const REGISTER_URL = `${API_AUTH_URL}/register`;
 const LOGIN_URL = `${API_AUTH_URL}/login`;
