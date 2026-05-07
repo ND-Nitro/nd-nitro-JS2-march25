@@ -84,7 +84,7 @@ export async function loginUser(email, password) {
     throw new Error("API key was not returned.");
   }
 
-  saveAuth({
+  saveAuthData({
     accessToken,
     apiKey,
     name,
