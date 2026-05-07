@@ -34,7 +34,7 @@ function renderPost(post) {
   ${
     isOwner
       ? `
-    <div cass="post-actions">
+    <div class="post-actions">
     <a href="./edit.html?id=${post.id}">Edit</a>
     <button id="deletePostBtn" type="button">Delete</button>
     </div>
@@ -56,11 +56,12 @@ function renderPost(post) {
         window.location.href = "./index.html";
       } catch (error) {
         if (messageElement) {
-          messageElement.tectContent = error.message;
+          messageElement.textContent = error.message;
         }
 
         console.error("delete post error:", error);
       }
+      S;
     });
   }
 }
