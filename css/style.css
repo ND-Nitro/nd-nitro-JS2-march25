@@ -4,6 +4,12 @@
 nav {
   background: var(--text);
   padding: 1rem;
+
+  /* Logout layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 nav a {
@@ -15,6 +21,14 @@ nav a {
 nav a:hover,
 nav a:focus {
   text-decoration: underline;
+}
+
+/* Logout button */
+
+.logout-btn {
+  width: auto;
+  margin: 0;
+  padding: 0.5rem 1rem;
 }
 
 main {
