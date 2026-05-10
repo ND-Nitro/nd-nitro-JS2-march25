@@ -1,0 +1,19 @@
+AI Assistance Log – JS2 Project
+
+Throughout this project, ChatGPT was mainly used as a learning and support tool to help me understand JavaScript, improve my project structure, and solve problems when I became stuck. The assistance I received focused on explanations, debugging, and guidance rather than simply generating complete solutions without understanding.
+
+The AI helped me with:
+- Debugging JavaScript errors and fixing authentication issues.
+- Understanding how login and logout systems work using localStorage and tokens.
+- Improving the structure of my JavaScript files and modules.
+- Explaining API requests and authorization headers.
+- Helping organize CSS and improve layout styling.
+- Assisting with responsive design and accessibility improvements.
+- Explaining GitHub Pages deployment issues and redirect problems.
+- Providing feedback on project structure and best practices.
+- Translating and correcting written reflection text into professional English.
+- Helping test and improve user flow, such as hiding logout buttons when logged out.
+
+During the project, I shared my own code files and project structure with the AI in order to save time and receive more accurate guidance related to my existing codebase. The AI assistance was based on the code and instructions I provided throughout the project, and changes or suggestions were only made according to the tasks and requests I specifically asked for help with.
+
+Most of the code used in this project is either written by me or adapted from my own previous work and demo projects. Because of this, I am able to explain, understand, and defend the code and technical decisions used in the project if questions should arise during evaluation.
