@@ -9,6 +9,10 @@ const formMessage = document.querySelector("#formMessage");
 
 const isLoggedIn = Boolean(getAccessToken());
 
+if (!isLoggedIn) {
+  window.location.href = "./login.html";
+}
+
 if (createPostForm && !isLoggedIn) {
   createPostForm.style.display = "none";
 }
